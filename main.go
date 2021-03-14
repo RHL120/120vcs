@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func main() {
+func example() {
 	var added []*Blob = make([]*Blob, 1, 10)
 	added[0] = new(Blob)
 	added[0].FilePath = "home"
@@ -20,6 +20,12 @@ func main() {
 	CommitVc("RHL120", added, b, repo)
 	BranchVC("dsa", repo.Branches[0], repo)
 	CommitVc("RHL120", added, repo.Branches[1], repo)
+	fmt.Println(repo.Branches)
+	DeleteVC("dsa", repo)
+	fmt.Println(repo.Branches)
 	fmt.Println(repo)
 
+}
+func main() {
+	example()
 }

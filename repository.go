@@ -1,8 +1,11 @@
 package main
+
 import "os"
+
 type VC120 struct {
-	Path     string
-	Branches []*Branch
+	Path          string
+	CurrentBranch uint
+	Branches      []*Branch
 }
 
 func InitVC(path string) (*VC120, error) {
