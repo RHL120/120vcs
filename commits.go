@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crypto/sha1"
+	"crypto/sha256"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -48,7 +48,7 @@ func WriteCommit(c *Commit) (output string, hash string) {
 	for _, i := range c.Blobs {
 		output = fmt.Sprintf("%s\n%s:%s", output, i.Node, i.FilePath)
 	}
-	hash = fmt.Sprintf("%x", sha1.Sum([]byte(output)))
+	hash = fmt.Sprintf("%x", sha256.Sum256([]byte(output)))
 	if c.Prev != nil {
 		output = fmt.Sprintf("%s\nprev:%s", output, c.Prev.Hash)
 	}
