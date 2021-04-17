@@ -6,29 +6,29 @@ import "crypto/sha256"
 import "fmt"
 
 func absp(path string) (ret string, err error) {
-	if (path[0] == '/') {
-		return path, nil;
+	if path[0] == '/' {
+		return path, nil
 	}
-	ret, err = os.Getwd();
-	ret += path;
-	return ret, err;
+	ret, err = os.Getwd()
+	ret += path
+	return ret, err
 }
 
 func path2vcpath(path string) (ret string, err error) {
-	ret, err = absp(path);
+	ret, err = absp(path)
 	if err != nil {
-		return ret, err;
+		return ret, err
 	}
-	ret = strings.ReplaceAll (path, ret, "");
-	return ret, err;
+	ret = strings.ReplaceAll(path, ret, "")
+	return ret, err
 }
 
 func sha256File(path string) (hash string, err error) {
-	var fcb []byte;
-	fcb, err = os.ReadFile (path);
+	var fcb []byte
+	fcb, err = os.ReadFile(path)
 	if err != nil {
-		return hash, err;
+		return hash, err
 	}
-	hash = fmt.Sprintf ("%x", sha256.Sum256 (fcb));
+	hash = fmt.Sprintf("%x", sha256.Sum256(fcb))
 	return hash, err
 }
