@@ -1,9 +1,9 @@
 package main
 
-import (
-	"os"
-	"strings"
-)
+import "os"
+import "strings"
+import "crypto/sha256"
+import "fmt"
 
 func absp(path string) (ret string, err error) {
 	if (path[0] == '/') {
@@ -21,4 +21,14 @@ func path2vcpath(path string) (ret string, err error) {
 	}
 	ret = strings.ReplaceAll (path, ret, "");
 	return ret, err;
+}
+
+func sha256File(path string) (hash string, err error) {
+	var fcb []byte;
+	fcb, err = os.ReadFile (path);
+	if err != nil {
+		return hash, err;
+	}
+	hash = fmt.Sprintf ("%x", sha256.Sum256 (fcb));
+	return hash, err
 }
