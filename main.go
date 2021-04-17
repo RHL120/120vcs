@@ -6,11 +6,12 @@ import (
 )
 
 func example() {
-	var added []*Blob = make([]*Blob, 1, 10)
-	added[0] = new(Blob)
-	added[0].FilePath = "home"
-	added[0].Node = "1235"
 	repo, err := InitVC(".")
+	var added []*Blob = make([]*Blob, 1, 10)
+	added[0], err = newBlob(repo, "./add.go");
+	if (err != nil) {
+		fmt.Println (err);
+	}
 	if err != nil {
 		_ = fmt.Errorf("Well Fuck %v\n", err)
 		os.Exit(1)
