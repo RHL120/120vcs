@@ -4,6 +4,7 @@ import "os"
 import "strings"
 import "crypto/sha256"
 import "fmt"
+import "io/ioutil"
 
 func absp(path string) (ret string, err error) {
 	if path[0] == '/' {
@@ -31,4 +32,32 @@ func sha256File(path string) (hash string, err error) {
 	}
 	hash = fmt.Sprintf("%x", sha256.Sum256(fcb))
 	return hash, err
+}
+
+func lsr(dst *[]string, path string) error {
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		return err
+	}
+	for _, file := range files {
+		fmt.Println(file.Name())
+		if file.Name() == "." || file.Name() == ".." {
+			continue
+		}
+		*dst = append(*dst, path+"/"+file.Name())
+		if !file.IsDir() {
+			continue
+		}
+		err = lsr(dst, (*dst)[len(*dst)-1])
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func list_recursive(path string) ([]string, error) {
+	files := make([]string, 5)
+	err := lsr(&files, path)
+	return files, err
 }
