@@ -9,10 +9,6 @@ import (
 	"time"
 )
 
-type Blob struct {
-	FilePath string
-	Node     string
-}
 type Commit struct {
 	Prev      *Commit
 	Blobs     []*Blob
