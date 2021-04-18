@@ -61,3 +61,11 @@ func list_recursive(path string) ([]string, error) {
 	err := lsr(&files, path)
 	return files, err
 }
+
+func strTrimAt (heystack string, needle string) (string) {
+	var index int = strings.Index (heystack, needle);
+	if index < 0 {
+		return "";
+	}
+	return fmt.Sprintf ("%s", heystack[:index]);
+}
